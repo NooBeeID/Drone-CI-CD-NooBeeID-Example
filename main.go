@@ -35,6 +35,12 @@ func main() {
 			"status": "ok",
 		})
 	})
+	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("METHOD=%v \tURL=%v\n", r.Method, r.URL.String())
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"message": "PONG",
+		})
+	})
 
 	log.Println("server running at port", port)
 	http.ListenAndServe(port, nil)
